@@ -3,7 +3,6 @@ import re
 import nltk
 import sys
 import getopt
-from pprint import pprint
 
 def split_ngrams(in_str, n=4):
   i = 0
@@ -21,8 +20,6 @@ def build_LM(in_file):
   each line in in_file contains a label and an URL separated by a tab(\t)
   """
   print 'building language models...'
-  # This is an empty method
-  # Pls implement your code in below
   LM = {}
   LM['tamil'] = {}
   LM['malaysian'] = {}
