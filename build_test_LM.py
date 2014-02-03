@@ -8,9 +8,9 @@ def split_ngrams(in_str, n=4):
   i = 0
   ngrams = []
   for c in in_str:
-    if i+4 > len(in_str):
+    if i+n > len(in_str):
       break
-    ngrams.append(in_str[i:i+4])
+    ngrams.append(in_str[i:i+n])
     i = i + 1
   return ngrams
 
