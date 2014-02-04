@@ -3,13 +3,17 @@ import re
 import nltk
 import sys
 import getopt
+import math
 
 def split_ngrams(in_str, n=4):
   i = 0
   ngrams = []
+  in_str = in_str.lower()
+  # in_str = in_str.split()
   for c in in_str:
     if i+n > len(in_str):
       break
+    # ngrams.append(" ".join(in_str[i:i+n]))
     ngrams.append(in_str[i:i+n])
     i = i + 1
   return ngrams
@@ -39,13 +43,11 @@ def build_LM(in_file):
 
   for lang in LM:
     t_sum = 0
-    prob = 0
     for ngrams in LM[lang]:
       t_sum +=LM[lang][ngrams]
     for ngrams in LM[lang]:
-      LM[lang][ngrams] = LM[lang][ngrams]/t_sum
-      prob = prob + LM[lang][ngrams]
-    return LM
+      LM[lang][ngrams] = math.log(LM[lang][ngrams]/float(t_sum))
+  return LM
 
 def test_LM(in_file, out_file, LM):
   """
@@ -60,9 +62,12 @@ def test_LM(in_file, out_file, LM):
       prob = dict.fromkeys(LM, 1.0)
       ngram_list = split_ngrams(l)
       for lang in LM:
+        num_matches = 1
         for ngram in ngram_list:
           if ngram in LM[lang]:
-            prob[lang] = float(prob[lang] * LM[lang][ngram])
+            prob[lang] = prob[lang] + LM[lang][ngram]
+            num_matches = num_matches + 1
+        prob[lang] = prob[lang]/num_matches
       predicted_lang = max(prob, key=prob.get)
       to_write.write(predicted_lang + ' ' + l)
 
