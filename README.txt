@@ -13,9 +13,10 @@ I followed mostly the method that was described in the assignment and slides wit
 
 == Files included with this submission ==
 
-List the files in your submission here and provide a short 1 line
-description of each file.  Make sure your submission's files are named
-and formatted correctly.
+build_test_LM.py => Main source code
+run.sh => shell script to run my code and test it against the test data provided.
+README.txt => Text file that describes all information about my submission
+ESSAY.txt => Text file with answers to the essay questions
 
 == Statement of individual work ==
 
