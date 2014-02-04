@@ -5,6 +5,10 @@ import sys
 import getopt
 import math
 
+# for running against training data
+def remove_lang(in_str):
+  return " ".join(in_str.split()[1:])
+
 def split_ngrams(in_str, n=4):
   i = 0
   ngrams = []
@@ -59,7 +63,8 @@ def test_LM(in_file, out_file, LM):
   to_write = open(out_file, "w")
   with open(in_file) as f:
     for l in f.readlines():
-      prob = dict.fromkeys(LM, 1.0)
+      # l = remove_lang(l)
+      prob = dict.fromkeys(LM, math.log(0.0000001))
       ngram_list = split_ngrams(l)
       for lang in LM:
         num_matches = 1
@@ -69,8 +74,9 @@ def test_LM(in_file, out_file, LM):
             num_matches = num_matches + 1
         prob[lang] = prob[lang]/num_matches
       predicted_lang = max(prob, key=prob.get)
+      if prob[predicted_lang] < -10.0:
+        predicted_lang = 'other'
       to_write.write(predicted_lang + ' ' + l)
-
 
 def usage():
   print "usage: " + sys.argv[0] + " -b input-file-for-building-LM -t input-file-for-testing-LM -o output-file"
