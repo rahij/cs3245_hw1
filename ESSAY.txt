@@ -1,2 +1,16 @@
-Replace this file with the answers to the essay questions here.
+1. In the homework assignment, we are using character-based ngrams, i.e., the gram units are characters. Do you expect token-based ngram models to perform better?
+
+Ans: No, I tried it (uncomment lines 16 and 20 and comment out line 21) and it gave a very low accuracy (around 5%). However, when I reduced the n-grams to 2 tokens instead of 4, it improved to 55%. I think it's because this considers the order of the words. But when predicting a language, it might not matter all that much since the training set and test data may not be in the same tense/person, for example.
+
+2. What do you think will happen if we provided more data for each category for you to build the language models? What if we only provided more data for Indonesian?
+
+Ans: If more data is provided, it will increase the accuracy. However, if only Indonesian is given, there is a likelihood that a given line might be predicted as Indonesian more often than usual. This is because the probability of ngrams in the language model will be higher in Indonesian due to more data. It will be seen even more so, alongside a similar language like Malaysian.
+
+3. What do you think will happen if you strip out punctuations and/or numbers? What about converting upper case characters to lower case?
+
+Ans: I tried both, but didn't make a difference here. But technically, lower case should help more since most languages don't differ by case. Punctuations on the other hand, might depend on the set of languages. If they have accented letters, symbols and similar things, it is better to preserve them.
+
+4. We use 4-gram models in this homework assignment. What do you think will happen if we varied the ngram size, such as using unigrams, bigrams and trigrams?
+
+Ans: I tried all of them, even 10-grams (change n in line 12). It was generally the highest at 4 and decreased a little bit at 3 and lesser below 3. When increased more than 5, the results dramatically dropped. This is probably due to considering too much of context in the ngrams and since the test data isn't similar THAT much to training, it doesn't work well.
 
